@@ -20,7 +20,7 @@ const mapTilerProvider = (
 
 function App() {
   const defaultCentre: Point = [51.50008, -0.14379];
-  const defaultZoom = 12;
+  const defaultZoom = 15;
   const [bboxCoords, setBBoxCoords] = React.useState<number[]>([
     -0.14379,
     51.50008,
@@ -40,12 +40,32 @@ function App() {
       try {
         const bbGeoJson = await getBBGeoJson(bboxCoords);
         updateData(bbGeoJson);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       }
     }
     getDataSet(bboxCoords);
   }, [bboxCoords]);
+
+  // offsets value for minimum Lat and Lng of Bound Box
+  const createMinBoundary = (value: number) => {
+    return value - 0.05 / 69;
+  };
+
+  // offsets value for minimum Lat and Lng of Bound Box
+  const createMaxBoundary = (value: number) => {
+    return value + 0.05 / 69;
+  };
+
+  // creates a bbox about 160 metre diameter
+  const createBBoxFromClickedCoords = (coords: Point) => {
+    return [
+      createMinBoundary(coords[1]),
+      createMinBoundary(coords[0]),
+      createMaxBoundary(coords[1]),
+      createMaxBoundary(coords[0]),
+    ];
+  };
 
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
@@ -54,12 +74,17 @@ function App() {
         defaultCenter={defaultCentre}
         defaultZoom={defaultZoom}
         provider={mapTilerProvider}
+        onClick={({ latLng }) =>
+          setBBoxCoords(createBBoxFromClickedCoords(latLng))
+        }
       >
         {data ? (
           <LineContainer
-            features={data.features.filter(
-              (feature) => feature?.properties?.building === "yes"
-            )}
+            features={data.features} // .filter(
+            //  (feature) =>
+            //     feature?.properties?.building === "yes" ||
+            //     feature?.properties?.building === "government"
+            //  )}
             activeFeature={activeFeature}
             featureClicked={setActiveFeature}
           />

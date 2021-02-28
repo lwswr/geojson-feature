@@ -2,7 +2,11 @@ import * as React from "react";
 
 // min_lon,min_lat,max_lon,max_lat.
 
-export const BBoxForm = ({ submit }: { submit: (array: number[]) => void }) => {
+export const BBoxForm = ({
+  submit,
+}: {
+  submit: (bboxCoords: number[]) => void;
+}) => {
   const [minLon, setMinLon] = React.useState<number>(-0.14379);
   const [minLat, setMinLat] = React.useState<number>(51.50008);
   const [maxLon, setMaxLon] = React.useState<number>(-0.14235);

@@ -48,7 +48,10 @@ export const LineContainer = ({
                   })
                 : "red"
             }
-            onClick={() => featureClicked(feature.id)}
+            onClick={() => {
+              console.log(feature.id);
+              featureClicked(feature.id);
+            }}
           />
         ))
       )}
@@ -71,9 +74,10 @@ const Line = ({
   // set our stroke width based on how zoomed in the user is. Thicker when zoomed out and thinner when zoomed in.
   const lineStrokeScale = React.useMemo(
     // pigeon maps default min/max 1 -> 18
-    () => scaleLinear().domain([1, 18]).range([10, 3]),
+    () => scaleLinear().domain([1, 18]).range([10, 2]),
     []
   );
+
   let pointsString = ``;
   if (coordsArray.length < 2) return null;
   for (let i = 0; i < coordsArray.length; i++) {
