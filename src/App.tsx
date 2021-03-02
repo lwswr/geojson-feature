@@ -4,8 +4,9 @@ import { Map, Point } from "pigeon-maps";
 import { BBoxForm } from "./BBoxForm";
 import { FeatureCollection, GeometryObject } from "geojson";
 import { LineContainer } from "./LineContainer";
+import { FeatureInfoDisplay } from "./FeatureInfoDisplay";
 
-const TILE_KEY: string = "tLsFLpESk6ikup9Az8ia";
+const TILE_KEY = "tLsFLpESk6ikup9Az8ia";
 
 const mapTilerProvider = (
   x: number,
@@ -18,9 +19,29 @@ const mapTilerProvider = (
   }.png?key=${TILE_KEY}`;
 };
 
+// offsets value for minimum Lat and Lng of Bound Box
+const createMinBoundary = (value: number) => {
+  return value - 0.05 / 69;
+};
+
+// offsets value for minimum Lat and Lng of Bound Box
+const createMaxBoundary = (value: number) => {
+  return value + 0.05 / 69;
+};
+
+// creates a bbox approximately 160 metre diameter
+export const createBBoxFromClickedCoords = (coords: Point) => {
+  return [
+    createMinBoundary(coords[1]),
+    createMinBoundary(coords[0]),
+    createMaxBoundary(coords[1]),
+    createMaxBoundary(coords[0]),
+  ];
+};
+
 function App() {
-  const defaultCentre: Point = [51.50008, -0.14379];
-  const defaultZoom = 15;
+  const defaultCentre: Point = [51.50061, -0.14752];
+  const defaultZoom = 16.5;
   const [bboxCoords, setBBoxCoords] = React.useState<number[]>([
     -0.14379,
     51.50008,
@@ -47,43 +68,30 @@ function App() {
     getDataSet(bboxCoords);
   }, [bboxCoords]);
 
-  // offsets value for minimum Lat and Lng of Bound Box
-  const createMinBoundary = (value: number) => {
-    return value - 0.05 / 69;
-  };
-
-  // offsets value for minimum Lat and Lng of Bound Box
-  const createMaxBoundary = (value: number) => {
-    return value + 0.05 / 69;
-  };
-
-  // creates a bbox about 160 metre diameter
-  const createBBoxFromClickedCoords = (coords: Point) => {
-    return [
-      createMinBoundary(coords[1]),
-      createMinBoundary(coords[0]),
-      createMaxBoundary(coords[1]),
-      createMaxBoundary(coords[0]),
-    ];
-  };
+  const selectedFeature = data?.features.find(
+    (feature) => feature.id === activeFeature
+  );
 
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
       <BBoxForm submit={(bboxCoords) => setBBoxCoords(bboxCoords)} />
+      {activeFeature && selectedFeature ? (
+        <FeatureInfoDisplay name={selectedFeature.properties.name} />
+      ) : null}
+
       <Map
         defaultCenter={defaultCentre}
         defaultZoom={defaultZoom}
         provider={mapTilerProvider}
-        onClick={({ latLng }) =>
-          setBBoxCoords(createBBoxFromClickedCoords(latLng))
-        }
+        onClick={({ latLng }) => {
+          setBBoxCoords(createBBoxFromClickedCoords(latLng));
+        }}
       >
         {data ? (
           <LineContainer
             features={data.features} // .filter(
             //  (feature) =>
-            //     feature?.properties?.building === "yes" ||
-            //     feature?.properties?.building === "government"
+            //     feature?.properties?.building === "yes"
             //  )}
             activeFeature={activeFeature}
             featureClicked={setActiveFeature}

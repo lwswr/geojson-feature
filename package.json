@@ -2,14 +2,13 @@
   "name": "geojson-feature",
   "version": "0.1.0",
   "private": true,
+  "main": "./index.tsx",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.7.3",
     "@types/axios": "^0.14.0",
     "@types/geojson": "^1.0.6",
-    "@types/jest": "^26.0.20",
     "@types/node": "^12.20.4",
     "@types/ol": "^6.4.2",
     "@types/osmtogeojson": "^2.2.29",
@@ -23,12 +22,12 @@
     "install": "^0.13.0",
     "npm": "^7.6.0",
     "ol": "^6.5.0",
-    "osmtogeojson": "^3.0.0-beta.4",
+    "osmtogeojson": "^2.2.12",
     "pigeon-maps": "^0.17.1",
     "randomcolor": "^0.6.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-openlayers": "^0.3.0",
+    "react-openlayers": "^0.1.9",
     "react-redux": "^7.2.2",
     "react-scripts": "4.0.3",
     "redux": "^4.0.5",
@@ -40,7 +39,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -62,7 +61,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-typescript": "^7.12.1",
+    "@testing-library/user-event": "^12.8.0",
     "@types/d3-scale": "^3.2.2",
-    "@types/randomcolor": "^0.5.5"
+    "@types/jest": "^26.0.20",
+    "@types/randomcolor": "^0.5.5",
+    "jest": "^26.6.0"
   }
 }

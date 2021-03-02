@@ -48,19 +48,17 @@ export type OSMDataResponse = {
   version: number;
 };
 
-const BOUNDS_BOX_BUCKINGHAM_PALACE = "-0.14379,51.50008,-0.14235,51.50152";
-
-export const convertToStringArray = (arr: number[]): string[] => {
-  return arr.map(String);
+export const convertToStringArray = (bboxCoords: number[]): string[] => {
+  return bboxCoords.map(String);
 };
 
-export const getBBGeoJson = async (array: number[]) => {
+export const getBBGeoJson = async (bboxCoords: number[]) => {
   const response = await axios.get<OSMDataResponse>(
     `https://www.openstreetmap.org/api/0.6/map?bbox=${convertToStringArray(
-      array
+      bboxCoords
     )}`
   );
-  const json = osmtogeojson(response.data);
-  console.log(json);
-  return json;
+  const geoJson = osmtogeojson(response.data);
+  console.log(geoJson);
+  return geoJson;
 };
