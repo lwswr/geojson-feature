@@ -49,9 +49,7 @@ function App() {
     51.50152,
   ]);
 
-  const [data, updateData] = React.useState<
-    FeatureCollection<GeometryObject, any> | undefined
-  >();
+  const [data, updateData] = React.useState<any | undefined>();
   const [activeFeature, setActiveFeature] = React.useState<
     string | undefined
   >();
@@ -69,7 +67,7 @@ function App() {
   }, [bboxCoords]);
 
   const selectedFeature = data?.features.find(
-    (feature) => feature.id === activeFeature
+    (feature: any) => feature.id === activeFeature
   );
 
   return (

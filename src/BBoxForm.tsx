@@ -46,7 +46,7 @@ const Middle = styled.div`
   align-items: center;
 `;
 
-const Button = styled.div`
+const Button = styled.button`
   margin: 20px 0px;
   background: #1b8cc4;
   border-radius: 5px;
@@ -64,20 +64,21 @@ export const BBoxForm = ({
 }: {
   submit: (bboxCoords: number[]) => void;
 }) => {
-  const [minLon, setMinLng] = React.useState<number>(-0.14379);
+  const [minLng, setMinLng] = React.useState<number>(-0.14379);
   const [minLat, setMinLat] = React.useState<number>(51.50008);
-  const [maxLon, setMaxLng] = React.useState<number>(-0.14235);
+  const [maxLng, setMaxLng] = React.useState<number>(-0.14235);
   const [maxLat, setMaxLat] = React.useState<number>(51.50152);
 
   return (
     <Form
       onSubmit={(e) => {
         e.preventDefault();
-        submit([minLon, minLat, maxLon, maxLat]);
+        submit([minLng, minLat, maxLng, maxLat]);
       }}
     >
-      <Heading>enter Boundary Box manually</Heading>
+      <Heading id="top-text">enter Boundary Box manually</Heading>
       <Input
+        data-testid="max-lat"
         type="text"
         value={maxLat}
         onChange={(e) => {
@@ -86,24 +87,29 @@ export const BBoxForm = ({
       />
       <Middle>
         <Input
+          data-testid="min-lng"
           type="text"
-          value={minLon}
+          value={minLng}
           onChange={(e) => setMinLng(parseFloat(e.target.value))}
         />
         <Box />
         <Input
+          data-testid="max-lng"
           type="text"
-          value={maxLon}
+          value={maxLng}
           onChange={(e) => setMaxLng(parseFloat(e.target.value))}
         />
       </Middle>
       <Input
+        data-testid="min-lat"
         type="text"
         value={minLat}
         onChange={(e) => setMinLat(parseFloat(e.target.value))}
       />
-      <Button>Search</Button>
-      <Heading>...or just click the map!</Heading>
+      <Button type="submit" data-testid="submit-button">
+        Search
+      </Button>
+      <Heading id="bottom-text">...or just click the map!</Heading>
     </Form>
   );
 };
