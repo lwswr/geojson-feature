@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/geojson-feature/static/css/main.3bfd4fac.chunk.css",
+    "main.js": "/geojson-feature/static/js/main.1ee9eb43.chunk.js",
+    "main.js.map": "/geojson-feature/static/js/main.1ee9eb43.chunk.js.map",
+    "runtime-main.js": "/geojson-feature/static/js/runtime-main.f6b9ab20.js",
+    "runtime-main.js.map": "/geojson-feature/static/js/runtime-main.f6b9ab20.js.map",
+    "static/js/2.daba08bc.chunk.js": "/geojson-feature/static/js/2.daba08bc.chunk.js",
+    "static/js/2.daba08bc.chunk.js.map": "/geojson-feature/static/js/2.daba08bc.chunk.js.map",
+    "index.html": "/geojson-feature/index.html",
+    "static/css/main.3bfd4fac.chunk.css.map": "/geojson-feature/static/css/main.3bfd4fac.chunk.css.map",
+    "static/js/2.daba08bc.chunk.js.LICENSE.txt": "/geojson-feature/static/js/2.daba08bc.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f6b9ab20.js",
+    "static/js/2.daba08bc.chunk.js",
+    "static/css/main.3bfd4fac.chunk.css",
+    "static/js/main.1ee9eb43.chunk.js"
+  ]
+}
