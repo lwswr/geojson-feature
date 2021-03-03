@@ -59,6 +59,5 @@ export const getBBGeoJson = async (bboxCoords: number[]) => {
     )}`
   );
   const geoJson = osmtogeojson(response.data);
-  console.log(geoJson);
   return geoJson;
 };
