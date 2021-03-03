@@ -2,10 +2,8 @@ import React from "react";
 import { getBBGeoJson } from "./API";
 import { Map, Point } from "pigeon-maps";
 import { BBoxForm } from "./BBoxForm";
-import { FeatureCollection, GeometryObject } from "geojson";
 import { LineContainer } from "./LineContainer";
 import { FeatureInfoDisplay } from "./FeatureInfoDisplay";
-import { features } from "process";
 
 const TILE_KEY = "tLsFLpESk6ikup9Az8ia";
 

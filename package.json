@@ -1,4 +1,5 @@
 {
+  "homepage": "http://lwswr.github.io/geojson-feature",
   "name": "geojson",
   "version": "0.1.0",
   "private": true,
@@ -12,6 +13,7 @@
     "@types/randomcolor": "^0.5.5",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@types/styled-components": "^5.1.7",
     "axios": "^0.21.1",
     "d3-scale": "^3.2.3",
     "osmtogeojson": "^3.0.0-beta.4",
@@ -26,6 +28,8 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -48,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
   }
 }
