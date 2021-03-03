@@ -71,8 +71,6 @@ function App() {
     (feature: any) => feature.id === activeFeature
   );
 
-  // [-0.1280950723450616, 51.49863385555124, -0.12664579698274278, 51.50008313091356] {195} results
-
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
       <BBoxForm submit={(bboxCoords) => setBBoxCoords(bboxCoords)} />
@@ -91,10 +89,7 @@ function App() {
       >
         {data ? (
           <LineContainer
-            features={data.features} // .filter(
-            //  (feature) =>
-            //     feature?.properties?.building === "yes"
-            //  )}
+            features={data.features}
             activeFeature={activeFeature}
             featureClicked={setActiveFeature}
           />
