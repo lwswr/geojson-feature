@@ -27,10 +27,11 @@ const Input = styled.input`
   height: 25px;
   font-size: 16px;
   text-align: center;
-  border: none;
+  border: 1px solid #1b8cc4;
+  border-radius: 5px;
   transition: 0.3s;
   :hover {
-    box-shadow: 0 4px 2px -2px #1b8cc4;
+    box-shadow: #1b8cc4 0px 3px 8px;
   }
 `;
 const Box = styled.div`
@@ -50,6 +51,7 @@ const Button = styled.button`
   margin: 20px 0px;
   background: #1b8cc4;
   border-radius: 5px;
+  border: none;
   padding: 10px;
   color: white;
   transition: 0.3s;
@@ -64,49 +66,61 @@ export const BBoxForm = ({
 }: {
   submit: (bboxCoords: number[]) => void;
 }) => {
-  const [minLng, setMinLng] = React.useState<number>(-0.14379);
-  const [minLat, setMinLat] = React.useState<number>(51.50008);
-  const [maxLng, setMaxLng] = React.useState<number>(-0.14235);
-  const [maxLat, setMaxLat] = React.useState<number>(51.50152);
+  const [minLng, setMinLng] = React.useState<string>("");
+  const [minLat, setMinLat] = React.useState<string>("");
+  const [maxLng, setMaxLng] = React.useState<string>("");
+  const [maxLat, setMaxLat] = React.useState<string>("");
 
   return (
     <Form
       onSubmit={(e) => {
         e.preventDefault();
-        submit([minLng, minLat, maxLng, maxLat]);
+        submit([
+          parseFloat(minLng!),
+          parseFloat(minLat!),
+          parseFloat(maxLng!),
+          parseFloat(maxLat!),
+        ]);
       }}
     >
       <Heading id="top-text">enter Boundary Box manually</Heading>
       <Input
         data-testid="max-lat"
+        placeholder="Max Lat"
+        name="max-lat"
         type="text"
         value={maxLat}
         onChange={(e) => {
-          setMaxLat(parseFloat(e.target.value));
+          setMaxLat(e.target.value);
         }}
       />
       <Middle>
         <Input
           data-testid="min-lng"
+          placeholder="Min Lng"
+          name="min-lng"
           type="text"
           value={minLng}
-          onChange={(e) => setMinLng(parseFloat(e.target.value))}
+          onChange={(e) => setMinLng(e.target.value)}
         />
         <Box />
         <Input
           data-testid="max-lng"
+          placeholder="Max Lng"
+          name="max-lng"
           type="text"
           value={maxLng}
-          onChange={(e) => setMaxLng(parseFloat(e.target.value))}
+          onChange={(e) => setMaxLng(e.target.value)}
         />
       </Middle>
       <Input
         data-testid="min-lat"
+        placeholder="Min Lat"
         type="text"
         value={minLat}
-        onChange={(e) => setMinLat(parseFloat(e.target.value))}
+        onChange={(e) => setMinLat(e.target.value)}
       />
-      <Button type="submit" data-testid="submit-button">
+      <Button data-testid="bbox-submit" type="submit">
         Search
       </Button>
       <Heading id="bottom-text">...or just click the map!</Heading>
