@@ -82,7 +82,6 @@ function App() {
         provider={mapTilerProvider}
         onClick={({ latLng }) => {
           setBBoxCoords(createBBoxFromClickedCoords(latLng));
-          console.log(bboxCoords, data.features);
         }}
       >
         {data ? (
