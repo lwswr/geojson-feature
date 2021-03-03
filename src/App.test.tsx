@@ -1,23 +1,34 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
-import { BBoxForm } from "./BBoxForm";
+import userEvent from "@testing-library/user-event";
 
-// Check successful mounting of <App />
-test("sucessfully renders App", () => {
-  render(<App />);
-  const linkElement = screen.getByText(/enter Boundary Box manually/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe("App", () => {
+  // Check successful mounting of <App />
+  it("sucessfully renders App", () => {
+    render(<App />);
+    const linkElement = screen.getByText(/enter Boundary Box manually/i);
+    expect(linkElement).toBeInTheDocument();
+  });
 
-// Form fields and events
-describe("BBoxForm", () => {
-  it("should render each field and button", () => {
-    render(<BBoxForm submit={(sub) => console.log(sub)} />);
-    expect(screen.getByTestId("max-lat")).toBeInTheDocument();
-    expect(screen.getByTestId("min-lng")).toBeInTheDocument();
-    expect(screen.getByTestId("max-lng")).toBeInTheDocument();
-    expect(screen.getByTestId("min-lat")).toBeInTheDocument();
-    expect(screen.getByTestId("submit-button")).toBeInTheDocument();
+  // checking polyline rendering and updating
+  it("renders polylines after resolve", async () => {
+    render(<App />);
+
+    // checks to see if polylines are rendered on following first API call
+    const renderedPolyLines = await screen.findAllByTestId("poly-line");
+    expect(renderedPolyLines.length).toBeGreaterThan(0);
+
+    // user enters new bbox
+    userEvent.type(screen.getByTestId("max-lat"), "51.50008313091356");
+    userEvent.type(screen.getByTestId("max-lng"), "-0.12664579698274278");
+    userEvent.type(screen.getByTestId("min-lat"), "51.49863385555124");
+    userEvent.type(screen.getByTestId("min-lng"), "-0.1280950723450616");
+
+    // click submit
+    userEvent.click(screen.getByTestId("bbox-submit"));
+
+    // then checks to see if polyLines are updated to new array length
+    expect(renderedPolyLines.length).toEqual(81);
   });
 });
