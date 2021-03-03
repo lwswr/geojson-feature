@@ -92,6 +92,7 @@ const Line = ({
 
   return pointsString ? (
     <polyline
+      data-testid="poly-line"
       onClick={() => onClick()}
       points={pointsString}
       stroke={colour}
