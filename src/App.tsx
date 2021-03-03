@@ -5,6 +5,7 @@ import { BBoxForm } from "./BBoxForm";
 import { FeatureCollection, GeometryObject } from "geojson";
 import { LineContainer } from "./LineContainer";
 import { FeatureInfoDisplay } from "./FeatureInfoDisplay";
+import { features } from "process";
 
 const TILE_KEY = "tLsFLpESk6ikup9Az8ia";
 
@@ -70,6 +71,8 @@ function App() {
     (feature: any) => feature.id === activeFeature
   );
 
+  // [-0.1280950723450616, 51.49863385555124, -0.12664579698274278, 51.50008313091356] {195} results
+
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
       <BBoxForm submit={(bboxCoords) => setBBoxCoords(bboxCoords)} />
@@ -83,6 +86,7 @@ function App() {
         provider={mapTilerProvider}
         onClick={({ latLng }) => {
           setBBoxCoords(createBBoxFromClickedCoords(latLng));
+          console.log(bboxCoords, data.features);
         }}
       >
         {data ? (
